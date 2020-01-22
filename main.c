@@ -1,21 +1,5 @@
-// This is AVR code for driving the RGB LED strips from Pololu.
-//
-// This version can control any AVR pin.  It uses "lds" and "sts" instructions,
-// which means it has to write to the entire port register every time it toggles
-// the I/O line, but that should be safe because interrupts are disabled.
-//
-// It allows complete control over the color of an arbitrary number of LEDs.
-// This implementation disables interrupts while it does bit-banging with
-// inline assembly.
-
-// This line specifies the frequency your AVR is running at.
-// This code supports 20 MHz, 16 MHz and 8MHz
 #define F_CPU 16000000UL
 
-// These lines specify what pin the LED strip is on.
-// You will either need to attach the LED strip's data line to PH3
-// (pin 6 on the Arduino Mega 2560) or change these
-// lines to specify a different pin.
 #define LED_STRIP_PORT PORTD
 #define LED_STRIP_DDR  DDRD
 #define LED_STRIP_PIN  3
@@ -25,13 +9,6 @@
 #include <util/delay.h>
 #include <stdint.h>
 
-// The rgb_color struct represents the color for an 8-bit RGB LED.
-// Examples:
-//   Black:      (rgb_color){ 0, 0, 0 }
-//   Pure red:   (rgb_color){ 255, 0, 0 }
-//   Pure green: (rgb_color){ 0, 255, 0 }
-//   Pure blue:  (rgb_color){ 0, 0, 255 }
-//   White:      (rgb_color){ 255, 255, 255}
 typedef struct rgb_color
 {
 	uint8_t red, green, blue;
